@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -125,14 +126,18 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    public User(Long id, String firstName, String lastName, String email, String password) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return getId().equals(user.getId());
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 }
 
 

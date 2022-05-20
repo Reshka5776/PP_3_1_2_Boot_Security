@@ -1,8 +1,10 @@
 package ru.kata.spring.boot_security.demo.dao;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.service.UserDetailsServiceImpl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,15 +15,15 @@ public class UserDaoImpl implements UserDao {
 
     @PersistenceContext
     private EntityManager entityManager;
+    private UserDetailsServiceImpl userDetailsService;
 
-    @Transactional
     @Override
     public List<User> getAllUsers() {
         return entityManager.createQuery("select u from User u", User.class)
                 .getResultList();
     }
 
-    @Transactional
+
     @Override
     public User getUserById(long id) {
         return entityManager.find(User.class, id);
@@ -45,11 +47,12 @@ public class UserDaoImpl implements UserDao {
         entityManager.merge(user);
     }
 
-    @Transactional
+
     @Override
     public User getUserByEmail(String email) {
-        return (User) entityManager.createQuery("select u from User u where u.email = ?1")
-                .setParameter(1, email)
+        return entityManager
+                .createQuery("select u from User u where u.email = :email", User.class)
+                .setParameter("email", email)
                 .getSingleResult();
     }
 }

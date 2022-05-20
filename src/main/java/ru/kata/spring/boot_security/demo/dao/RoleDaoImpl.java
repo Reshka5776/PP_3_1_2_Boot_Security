@@ -18,14 +18,13 @@ public class RoleDaoImpl implements RoleDao {
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Transactional
+
     @Override
     public Role getRoleById(long id) {
         return entityManager.find(Role.class, id);
     }
 
 
-    @Transactional
     @Override
     public Set<Role> getAllRoles(Set<String> roles) {
         return new HashSet<>(entityManager.createQuery("select role from Role role where role.name =:roleName", Role.class)

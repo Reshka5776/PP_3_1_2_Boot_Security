@@ -2,6 +2,8 @@ package ru.kata.spring.boot_security.demo.dao;
 
 
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.service.UserDetailsServiceImpl;
+
 import java.util.List;
 
 public interface UserDao {

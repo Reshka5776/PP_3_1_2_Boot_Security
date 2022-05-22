@@ -37,20 +37,20 @@ public class RoleDaoImpl implements RoleDao {
         return entityManager.createQuery("FROM Role").getResultList();
     }
 
-    @Transactional
+    //@Transactional
     @Override
     public void save(Role role) {
         entityManager.persist(role);
     }
 
-    @Transactional
+
     @Override
     public void update(Role updatedRole) {
         entityManager.merge(updatedRole);
 
     }
 
-    @Transactional
+
     @Override
     public void removeRole(long id) {
         entityManager.remove(entityManager.find(Role.class, id));

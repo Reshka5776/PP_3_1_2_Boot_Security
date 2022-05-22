@@ -1,11 +1,9 @@
 package ru.kata.spring.boot_security.demo.dao;
 
-import org.springframework.security.core.userdetails.UserDetailsService;
+
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserDetailsServiceImpl;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
@@ -29,19 +27,19 @@ public class UserDaoImpl implements UserDao {
         return entityManager.find(User.class, id);
     }
 
-    @Transactional
+
     @Override
     public void addUser(User user) {
         entityManager.persist(user);
     }
 
-    @Transactional
+
     @Override
     public void removeUser(long id) {
         entityManager.remove(getUserById(id));
     }
 
-    @Transactional
+    //@Transactional
     @Override
     public void editUser(User user) {
         entityManager.merge(user);
